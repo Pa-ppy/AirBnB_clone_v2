@@ -7,7 +7,7 @@ from fabric.api import env, put, run, local
 from datetime import datetime
 import os
 
-env.hosts = ['<IP web-01>', '<IP web-02>']  # Replace with your server IPs
+env.hosts = ['<100.24.72.31 806443-web-01>', '<54.88.51.70 806443-web-02>']  # Replace with your server IPs
 
 
 def do_pack():
@@ -34,7 +34,6 @@ def do_deploy(archive_path):
         return False
 
     try:
-        # Extract file and folder names
         file_name = archive_path.split("/")[-1]
         folder_name = f"/data/web_static/releases/{file_name.split('.')[0]}"
 
