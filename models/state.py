@@ -1,18 +1,21 @@
 #!/usr/bin/python3
-"""Defines the State class."""
+"""State Module for HBNB project"""
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
+import os
+
 
 class State(BaseModel, Base):
-    """State class."""
-    __tablename__ = 'states'
+    """State class"""
+    __tablename__ = "states"
     name = Column(String(128), nullable=False)
-    cities = relationship('City', cascade='all, delete', backref='state')
+    cities = relationship("City", backref="state",
+                          cascade="all, delete-orphan")
 
     @property
     def cities(self):
-        """Getter for cities when using FileStorage."""
+        """Getter method to return list of City instances"""
         from models import storage
-        from models.city import City
-        return [city for city in storage.all(City).values() if city.state_id == self.id]
+        return [city for city in storage.all(City).values()
+                if city.state_id == self.id]
